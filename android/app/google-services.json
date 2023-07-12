@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "843133762043",
+    "project_id": "presensikita-3d17a",
+    "storage_bucket": "presensikita-3d17a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843133762043:android:174010e7cd161fd2c0335e",
+        "android_client_info": {
+          "package_name": "com.presensikita.presensikita"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843133762043-95b551kv4koa9ob3tg0ntlj1hisj8tk9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsA0DbMLR81f_sj1qvxJo3L4RJ4ujPOPI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "843133762043-95b551kv4koa9ob3tg0ntlj1hisj8tk9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
