@@ -148,57 +148,70 @@ class HomeView extends GetView<HomeController> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text("Selama 5 Hari"),
-                        TextButton(onPressed: () {}, child: Text("See more")),
+                        TextButton(
+                            onPressed: () => Get.toNamed(Routes.ALL_PRESENSI),
+                            child: Text("See more")),
                       ],
                     ),
                     SizedBox(height: 10),
                     ListView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: 5,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 20),
-                            margin: EdgeInsets.only(bottom: 10),
-                            decoration: BoxDecoration(
-                              color: Colors.grey[200],
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 16),
+                          child: Material(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(20),
+                            child: InkWell(
                               borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                              onTap: () => Get.toNamed(Routes.DETAIL_PRESENSI),
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 20),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Masuk",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        Text(
+                                          "${DateFormat.yMMMEd().format(DateTime.now())}",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ],
+                                    ),
                                     Text(
-                                      "Masuk",
+                                        "${DateFormat.jms().format(DateTime.now())}"),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "Keluar",
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
                                     Text(
-                                      "${DateFormat.yMMMEd().format(DateTime.now())}",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500),
-                                    ),
+                                        "${DateFormat.jms().format(DateTime.now())}"),
                                   ],
                                 ),
-                                Text(
-                                    "${DateFormat.jms().format(DateTime.now())}"),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  "Keluar",
-                                  style: TextStyle(fontWeight: FontWeight.w500),
-                                ),
-                                Text(
-                                    "${DateFormat.jms().format(DateTime.now())}"),
-                              ],
+                              ),
                             ),
-                          );
-                        }),
+                          ),
+                        );
+                      },
+                    ),
                   ],
                 );
               } else {

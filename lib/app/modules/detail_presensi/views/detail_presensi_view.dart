@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../controllers/detail_presensi_controller.dart';
 
@@ -9,16 +10,90 @@ class DetailPresensiView extends GetView<DetailPresensiController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('DetailPresensiView'),
-        centerTitle: true,
-      ),
-      body: const Center(
-        child: Text(
-          'DetailPresensiView is working',
-          style: TextStyle(fontSize: 20),
+        appBar: AppBar(
+          title: const Text('DetailPresensiView'),
+          centerTitle: true,
         ),
-      ),
-    );
+        body: ListView(
+          padding: EdgeInsets.all(20),
+          children: [
+            Container(
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Text(
+                      "${DateFormat.yMMMEd().format(DateTime.now())}",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Masuk",
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                  Row(
+                    children: [
+                      Text("Jam"),
+                      Text(":"),
+                      Text("${DateFormat.jms().format(DateTime.now())}"),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text("Posisi"),
+                      Text(":"),
+                      Text("-7.8737826 , 19028"),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text("Status"),
+                      Text(":"),
+                      Text("Dalam Area"),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  Text(
+                    "Keluar",
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                  Row(
+                    children: [
+                      Text("Jam"),
+                      Text(":"),
+                      Text("${DateFormat.jms().format(DateTime.now())}"),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text("Posisi"),
+                      Text(":"),
+                      Text("-7.8737826 , 19028"),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text("Status"),
+                      Text(":"),
+                      Text("Dalam Area"),
+                    ],
+                  ),
+                ],
+              ),
+            )
+          ],
+        ));
   }
 }
