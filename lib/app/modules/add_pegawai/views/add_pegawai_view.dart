@@ -33,6 +33,14 @@ class AddPegawaiView extends GetView<AddPegawaiController> {
             ),
             SizedBox(height: 20),
             TextField(
+              controller: controller.jobC,
+              decoration: InputDecoration(
+                labelText: "Job",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 20),
+            TextField(
               controller: controller.emailC,
               decoration: InputDecoration(
                 labelText: "Email",

@@ -8,6 +8,7 @@ class AddPegawaiController extends GetxController {
   RxBool isLoadingValidasi = false.obs;
   TextEditingController nameC = TextEditingController();
   TextEditingController nipC = TextEditingController();
+  TextEditingController jobC = TextEditingController();
   TextEditingController emailC = TextEditingController();
   TextEditingController passAdminC = TextEditingController();
 
@@ -20,7 +21,8 @@ class AddPegawaiController extends GetxController {
       try {
         String emailAdmin = auth.currentUser!.email!;
 
-        UserCredential adminCredential = await auth.signInWithEmailAndPassword(
+//login sebagai bukti kalo ini admin
+        await auth.signInWithEmailAndPassword(
             email: emailAdmin, password: passAdminC.text);
 
         UserCredential userCredential =
@@ -34,6 +36,7 @@ class AddPegawaiController extends GetxController {
           "nip": nipC.text,
           "name": nameC.text,
           "email": emailC.text,
+          "job": jobC.text,
           "role": "pegawai",
           "createdAt": DateTime.now().toIso8601String(),
         });
@@ -69,6 +72,7 @@ class AddPegawaiController extends GetxController {
   Future<void> addPegawai() async {
     if (nameC.text.isNotEmpty &&
         nipC.text.isNotEmpty &&
+        jobC.text.isNotEmpty &&
         emailC.text.isNotEmpty) {
       isLoading.value = true;
 

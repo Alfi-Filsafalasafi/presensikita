@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:presensikita/app/routes/app_pages.dart';
 
+import '../../../controllers/page_index_controller.dart';
+
 class LoginController extends GetxController {
   RxBool isLoading = false.obs;
   TextEditingController emailC = TextEditingController();
   TextEditingController passwordC = TextEditingController();
 
   FirebaseAuth auth = FirebaseAuth.instance;
+  final pageC = Get.find<PageIndexController>();
 
   Future<void> login() async {
     if (emailC.text.isNotEmpty && passwordC.text.isNotEmpty) {
@@ -66,13 +69,14 @@ class LoginController extends GetxController {
     } else {
       Get.snackbar("Terjadi kesalahan", "Email dan Password Wajib diisi");
     }
+    pageC.pageIndex.value = 0;
     isLoading.value = false;
   }
 
   @override
   void onInit() {
     // TODO: implement onInit
-    emailC.text = "alfifilsafat@gmail.com";
+    emailC.text = "alfi.filsafalasafi.2005336@students.um.ac.id";
     super.onInit();
   }
 
