@@ -8,6 +8,7 @@ import '../controllers/update_profile_controller.dart';
 
 class UpdateProfileView extends GetView<UpdateProfileController> {
   final Map<String, dynamic> user = Get.arguments;
+
   @override
   Widget build(BuildContext context) {
     controller.nipC.text = user["nip"];
@@ -20,40 +21,40 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
           centerTitle: true,
         ),
         body: ListView(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           children: [
             TextField(
               readOnly: true,
               controller: controller.emailC,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Email",
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextField(
               controller: controller.nipC,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "NIP",
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextField(
               controller: controller.nameC,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Name",
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
-            Text(
+            const Text(
               "Photo Profile",
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
@@ -62,7 +63,7 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                 GetBuilder<UpdateProfileController>(builder: (c) {
                   if (c.imageProfile != null) {
                     return ClipOval(
-                      child: Container(
+                      child: SizedBox(
                         width: 100,
                         height: 100,
                         child: Image.file(
@@ -76,7 +77,7 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                       return Column(
                         children: [
                           ClipOval(
-                            child: Container(
+                            child: SizedBox(
                               width: 100,
                               height: 100,
                               child: Image.network(
@@ -90,13 +91,13 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                                 onPressed: () =>
                                     controller.deleteImgProfile(user["uid"]),
                                 child: controller.isLoading.isFalse
-                                    ? Icon(Icons.delete)
-                                    : CircularProgressIndicator()),
+                                    ? const Icon(Icons.delete)
+                                    : const CircularProgressIndicator()),
                           ),
                         ],
                       );
                     }
-                    return Text("No image");
+                    return const Text("No image");
                   }
                 }),
                 // Text(user["photoURL"] != null && user["photoURL"] != ""
@@ -104,10 +105,10 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                 //     : "Belum ada"),
                 TextButton(
                     onPressed: () => controller.pickImgProfile(),
-                    child: Text("Choose ..."))
+                    child: const Text("Choose ..."))
               ],
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Obx(
               () => ElevatedButton(
                 onPressed: () async {

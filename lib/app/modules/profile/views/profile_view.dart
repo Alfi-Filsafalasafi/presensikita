@@ -10,6 +10,7 @@ import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
   final pageC = Get.find<PageIndexController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,22 +22,22 @@ class ProfileView extends GetView<ProfileController> {
         stream: controller.streamUser(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
           Map<String, dynamic> user = snapshot.data!.data()!;
           return ListView(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ClipOval(
-                    child: Container(
+                    child: SizedBox(
                       width: 100,
                       height: 100,
                       child: Image.network(
@@ -51,42 +52,42 @@ class ProfileView extends GetView<ProfileController> {
                   ),
                 ],
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               Text(
                 "${user["name"]}",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 7,
               ),
               Text(
                 "${user["email"]}",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               ListTile(
                 onTap: () =>
                     Get.toNamed(Routes.UPDATE_PROFILE, arguments: user),
-                leading: Icon(Icons.edit),
-                title: Text("Update Profile"),
+                leading: const Icon(Icons.edit),
+                title: const Text("Update Profile"),
               ),
               ListTile(
                 onTap: () => Get.toNamed(Routes.UPDATE_PASSWORD),
-                leading: Icon(Icons.password),
-                title: Text("Change Password"),
+                leading: const Icon(Icons.password),
+                title: const Text("Change Password"),
               ),
               if (user["role"] == "admin")
                 ListTile(
                   onTap: () => Get.toNamed(Routes.ADD_PEGAWAI),
-                  leading: Icon(Icons.person_add),
-                  title: Text("Add Pegawai"),
+                  leading: const Icon(Icons.person_add),
+                  title: const Text("Add Pegawai"),
                 ),
               ListTile(
                 onTap: () => controller.logout(),
-                leading: Icon(Icons.logout),
-                title: Text("Logout"),
+                leading: const Icon(Icons.logout),
+                title: const Text("Logout"),
               ),
             ],
           );
@@ -94,7 +95,7 @@ class ProfileView extends GetView<ProfileController> {
       ),
       bottomNavigationBar: ConvexAppBar(
         style: TabStyle.fixedCircle,
-        items: [
+        items: const [
           TabItem(icon: Icons.home, title: 'Home'),
           TabItem(icon: Icons.fingerprint, title: 'Add'),
           TabItem(icon: Icons.people, title: 'Profile'),

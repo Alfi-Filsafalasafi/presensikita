@@ -15,24 +15,24 @@ class LoginView extends GetView<LoginController> {
           centerTitle: true,
         ),
         body: ListView(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           children: [
             TextField(
               controller: controller.emailC,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Email",
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextField(
               controller: controller.passwordC,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Password",
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Obx(
               () => ElevatedButton(
                 onPressed: () async {
@@ -47,12 +47,12 @@ class LoginView extends GetView<LoginController> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             TextButton(
               onPressed: () => Get.toNamed(Routes.FORGOT_PASSWORD),
-              child: Text("Lupa Password ?"),
+              child: const Text("Lupa Password ?"),
             ),
           ],
         ));

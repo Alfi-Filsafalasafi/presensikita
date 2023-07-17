@@ -14,33 +14,33 @@ class NewPasswordView extends GetView<NewPasswordController> {
           centerTitle: true,
         ),
         body: ListView(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           children: [
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
-            Text(
+            const Text(
               "Anda masih menggunakan password default dari sistem",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Text("Silahkan ganti password untuk menjaga keamanan akun anda"),
-            SizedBox(
+            const Text("Silahkan ganti password untuk menjaga keamanan akun anda"),
+            const SizedBox(
               height: 30,
             ),
             TextField(
               controller: controller.passwordC,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(), labelText: "New Password"),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () => controller.newPassword(),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
+              child: const Padding(
+                padding: EdgeInsets.symmetric(vertical: 20),
                 child: Text("Simpan Password"),
               ),
             ),

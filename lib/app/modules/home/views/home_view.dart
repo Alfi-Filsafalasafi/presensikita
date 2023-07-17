@@ -26,14 +26,14 @@ class HomeView extends GetView<HomeController> {
             stream: controller.streamUser(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
               if (snapshot.hasData) {
                 Map<String, dynamic> user = snapshot.data!.data()!;
                 return ListView(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   children: [
                     Row(
                       children: [
@@ -43,14 +43,13 @@ class HomeView extends GetView<HomeController> {
                             height: 70,
                             color: Colors.grey,
                             child: Image.network(
-                              user["photoURL"] != null
-                                  ? user["photoURL"]
-                                  : "https://ui-avatars.com/api/${user["name"]}",
+                              user["photoURL"] ??
+                                  "https://ui-avatars.com/api/${user["name"]}",
                               fit: BoxFit.cover,
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 12,
                         ),
                         Expanded(
@@ -66,17 +65,19 @@ class HomeView extends GetView<HomeController> {
                               SizedBox(
                                 height: 5,
                               ),
-                              Text("Belum ada Lokasi")
+                              Text(user["address"] != null
+                                  ? "${user["address"]}"
+                                  : "Belum ada Lokasi"),
                             ],
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Container(
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: Colors.grey[200],
@@ -86,30 +87,30 @@ class HomeView extends GetView<HomeController> {
                         children: [
                           Text(
                             "${user["job"]}",
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w600),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 6,
                           ),
                           Text(
                             "${user["nip"]}",
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 22, fontWeight: FontWeight.w500),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 6,
                           ),
                           Text(
                             "${user["name"]}",
-                            style: TextStyle(fontSize: 18),
+                            style: const TextStyle(fontSize: 18),
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Container(
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         color: Colors.grey[200],
                         borderRadius: BorderRadius.circular(20),
@@ -117,7 +118,7 @@ class HomeView extends GetView<HomeController> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Column(
+                          const Column(
                             children: [
                               Text("Masuk"),
                               Text("-"),
@@ -128,7 +129,7 @@ class HomeView extends GetView<HomeController> {
                             width: 3,
                             color: Colors.white,
                           ),
-                          Column(
+                          const Column(
                             children: [
                               Text("Keluar"),
                               Text("-"),
@@ -137,92 +138,115 @@ class HomeView extends GetView<HomeController> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
-                    Divider(
+                    const Divider(
                       color: Colors.blue,
                       thickness: 1.4,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Selama 5 Hari"),
+                        const Text("Selama 5 Hari"),
                         TextButton(
                             onPressed: () => Get.toNamed(Routes.ALL_PRESENSI),
-                            child: Text("See more")),
+                            child: const Text("See more")),
                       ],
                     ),
-                    SizedBox(height: 10),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: 5,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 16),
-                          child: Material(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(20),
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(20),
-                              onTap: () => Get.toNamed(Routes.DETAIL_PRESENSI),
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 20),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Masuk",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        Text(
-                                          "${DateFormat.yMMMEd().format(DateTime.now())}",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                      ],
-                                    ),
-                                    Text(
-                                        "${DateFormat.jms().format(DateTime.now())}"),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      "Keluar",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    Text(
-                                        "${DateFormat.jms().format(DateTime.now())}"),
-                                  ],
-                                ),
+                    const SizedBox(height: 10),
+                    StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                        stream: controller.streamLastPresence(),
+                        builder: (context, snapPresence) {
+                          if (snapPresence.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          if (snapPresence.data!.docs.length == 0) {
+                            return SizedBox(
+                              height: 100,
+                              child: Center(
+                                child: Text("Belum ada Presensi"),
                               ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                            );
+                          }
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: snapPresence.data!.docs.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 16),
+                                child: Material(
+                                  color: Colors.grey[200],
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(20),
+                                    onTap: () =>
+                                        Get.toNamed(Routes.DETAIL_PRESENSI),
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10, horizontal: 20),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              const Text(
+                                                "Masuk",
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                              Text(
+                                                DateFormat.yMMMEd()
+                                                    .format(DateTime.now()),
+                                                style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                            ],
+                                          ),
+                                          Text(DateFormat.jms()
+                                              .format(DateTime.now())),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          const Text(
+                                            "Keluar",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                          Text(DateFormat.jms()
+                                              .format(DateTime.now())),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        }),
                   ],
                 );
               } else {
-                return Center(
+                return const Center(
                   child: Text("Gagal Memuat Database"),
                 );
               }
             }),
         bottomNavigationBar: ConvexAppBar(
           style: TabStyle.fixedCircle,
-          items: [
+          items: const [
             TabItem(icon: Icons.home, title: 'Home'),
             TabItem(icon: Icons.fingerprint, title: 'Add'),
             TabItem(icon: Icons.people, title: 'Profile'),

@@ -34,7 +34,7 @@ class LoginController extends GetxController {
               actions: [
                 OutlinedButton(
                   onPressed: () => Get.back(),
-                  child: Text("Kembali"),
+                  child: const Text("Kembali"),
                 ),
                 ElevatedButton(
                   onPressed: () async {
@@ -50,7 +50,7 @@ class LoginController extends GetxController {
                       print("Gagal verifikasi karena");
                     }
                   },
-                  child: Text("Kirim ulang"),
+                  child: const Text("Kirim ulang"),
                 ),
               ]);
         }

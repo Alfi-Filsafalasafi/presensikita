@@ -81,13 +81,13 @@ class AddPegawaiController extends GetxController {
         barrierDismissible: false,
         content: Column(
           children: [
-            Text("Silahkan masukkan password anda, untuk validasi"),
-            SizedBox(
+            const Text("Silahkan masukkan password anda, untuk validasi"),
+            const SizedBox(
               height: 10,
             ),
             TextField(
               controller: passAdminC,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(), labelText: "Password Admin"),
             )
           ],
@@ -98,7 +98,7 @@ class AddPegawaiController extends GetxController {
               isLoading.value = false;
               Get.back();
             },
-            child: Text("Kembali"),
+            child: const Text("Kembali"),
           ),
           Obx(
             () => ElevatedButton(

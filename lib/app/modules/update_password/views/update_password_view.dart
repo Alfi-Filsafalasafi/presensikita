@@ -14,37 +14,37 @@ class UpdatePasswordView extends GetView<UpdatePasswordController> {
           centerTitle: true,
         ),
         body: ListView(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextField(
               obscureText: true,
               controller: controller.passSaatini,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   labelText: "Password Saat ini", border: OutlineInputBorder()),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             TextField(
               obscureText: true,
               controller: controller.newPass,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   labelText: "Password Baru", border: OutlineInputBorder()),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             TextField(
               obscureText: true,
               controller: controller.ulangPass,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   labelText: "Ketik Ulang Password Baru",
                   border: OutlineInputBorder()),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Obx(() => ElevatedButton(

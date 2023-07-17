@@ -17,8 +17,8 @@ class AllPresensiView extends GetView<AllPresensiController> {
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(20),
+          const Padding(
+            padding: EdgeInsets.all(20),
             child: TextField(
               decoration: InputDecoration(
                   labelText: "Search", border: OutlineInputBorder()),
@@ -26,7 +26,7 @@ class AllPresensiView extends GetView<AllPresensiController> {
           ),
           Expanded(
             child: ListView.builder(
-                padding: EdgeInsets.only(right: 20, left: 20, top: 10),
+                padding: const EdgeInsets.only(right: 20, left: 20, top: 10),
                 itemCount: 10,
                 itemBuilder: (context, index) {
                   return Padding(
@@ -38,7 +38,7 @@ class AllPresensiView extends GetView<AllPresensiController> {
                         borderRadius: BorderRadius.circular(20),
                         onTap: () => Get.toNamed(Routes.DETAIL_PRESENSI),
                         child: Container(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 20),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
@@ -50,29 +50,29 @@ class AllPresensiView extends GetView<AllPresensiController> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Masuk",
                                     style:
                                         TextStyle(fontWeight: FontWeight.w500),
                                   ),
                                   Text(
-                                    "${DateFormat.yMMMEd().format(DateTime.now())}",
+                                    DateFormat.yMMMEd().format(DateTime.now()),
                                     style:
-                                        TextStyle(fontWeight: FontWeight.w500),
+                                        const TextStyle(fontWeight: FontWeight.w500),
                                   ),
                                 ],
                               ),
                               Text(
-                                  "${DateFormat.jms().format(DateTime.now())}"),
-                              SizedBox(
+                                  DateFormat.jms().format(DateTime.now())),
+                              const SizedBox(
                                 height: 5,
                               ),
-                              Text(
+                              const Text(
                                 "Keluar",
                                 style: TextStyle(fontWeight: FontWeight.w500),
                               ),
                               Text(
-                                  "${DateFormat.jms().format(DateTime.now())}"),
+                                  DateFormat.jms().format(DateTime.now())),
                             ],
                           ),
                         ),

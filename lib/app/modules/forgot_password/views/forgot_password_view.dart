@@ -14,21 +14,21 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
         centerTitle: true,
       ),
       body: ListView(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         children: [
-          Text(
+          const Text(
             'Masukkan email anda untuk dilakukan reset password',
             style: TextStyle(fontSize: 16),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           TextField(
             controller: controller.emailC,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
                 labelText: "Email", border: OutlineInputBorder()),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           Obx(() => ElevatedButton(

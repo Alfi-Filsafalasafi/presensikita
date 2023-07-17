@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,7 +19,7 @@ class UpdatePasswordController extends GetxController {
         ulangPass.text.isNotEmpty) {
       if (newPass.text == ulangPass.text) {
         try {
-          String email = await auth.currentUser!.email!;
+          String email = auth.currentUser!.email!;
           await auth.signInWithEmailAndPassword(
               email: email, password: passSaatini.text);
           await auth.currentUser!.updatePassword(newPass.text);

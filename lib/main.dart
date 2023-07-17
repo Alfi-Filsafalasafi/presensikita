@@ -15,7 +15,7 @@ void main() async {
   );
   final pageC = Get.put(PageIndexController(), permanent: true);
   runApp(
-    MyApp(),
+    const MyApp(),
   );
 }
 
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return MaterialApp(
+          return const MaterialApp(
             home: Scaffold(
               body: Center(
                 child: CircularProgressIndicator(),
@@ -41,8 +41,7 @@ class MyApp extends StatelessWidget {
         print(snapshot.data);
         return GetMaterialApp(
           title: "Application",
-          initialRoute:
-              snapshot.data != null ? Routes.ALL_PRESENSI : Routes.LOGIN,
+          initialRoute: snapshot.data != null ? Routes.HOME : Routes.LOGIN,
           getPages: AppPages.routes,
         );
       },
