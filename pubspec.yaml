@@ -18,13 +18,24 @@ dependencies:
   intl: 0.18.1
   geolocator: 9.0.2
   geocoding: 2.1.0
+  syncfusion_flutter_datepicker: 22.1.39
   flutter: 
     sdk: flutter
+  
+
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon.png"
 
 dev_dependencies: 
   flutter_lints: 2.0.2
+  flutter_launcher_icons: "^0.10.0"
   flutter_test: 
     sdk: flutter
+
+
 
 flutter: 
   uses-material-design: true

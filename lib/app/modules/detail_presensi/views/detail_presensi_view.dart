@@ -6,9 +6,10 @@ import 'package:intl/intl.dart';
 import '../controllers/detail_presensi_controller.dart';
 
 class DetailPresensiView extends GetView<DetailPresensiController> {
-  const DetailPresensiView({Key? key}) : super(key: key);
+  final Map<String, dynamic> data = Get.arguments;
   @override
   Widget build(BuildContext context) {
+    print(data);
     return Scaffold(
         appBar: AppBar(
           title: const Text('DetailPresensiView'),
@@ -29,9 +30,9 @@ class DetailPresensiView extends GetView<DetailPresensiController> {
                 children: [
                   Center(
                     child: Text(
-                      DateFormat.yMMMEd().format(DateTime.now()),
-                      style:
-                          const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                      DateFormat.yMMMEd().format(DateTime.parse(data["date"])),
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.w500),
                     ),
                   ),
                   const SizedBox(
@@ -43,23 +44,32 @@ class DetailPresensiView extends GetView<DetailPresensiController> {
                   ),
                   Row(
                     children: [
-                      const Text("Jam"),
-                      const Text(":"),
-                      Text(DateFormat.jms().format(DateTime.now())),
+                      Text("Jam :"),
+                      Text(DateFormat.jms()
+                          .format(DateTime.parse(data["masuk"]["date"]))),
                     ],
                   ),
-                  const Row(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Posisi"),
-                      Text(":"),
-                      Text("-7.8737826 , 19028"),
+                      Text("Posisi :"),
+                      Expanded(
+                        child: Text(data["masuk"]["address"]),
+                      ),
                     ],
                   ),
-                  const Row(
+                  Row(
                     children: [
-                      Text("Status"),
-                      Text(":"),
-                      Text("Dalam Area"),
+                      Text("Status :"),
+                      Text(data["masuk"]["status"]),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text("Radius :"),
+                      Text(
+                          "${data["masuk"]!["distance"].toString().split(".").first} meter")
                     ],
                   ),
                   const SizedBox(
@@ -71,25 +81,47 @@ class DetailPresensiView extends GetView<DetailPresensiController> {
                   ),
                   Row(
                     children: [
-                      const Text("Jam"),
-                      const Text(":"),
-                      Text(DateFormat.jms().format(DateTime.now())),
+                      const Text("Jam :"),
+                      Text(data["keluar"] == null
+                          ? "-"
+                          : data["keluar"]["date"] == null
+                              ? "-"
+                              : DateFormat.jms().format(
+                                  DateTime.parse(data["keluar"]["date"]))),
                     ],
                   ),
-                  const Row(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Posisi"),
-                      Text(":"),
-                      Text("-7.8737826 , 19028"),
+                      Text("Posisi :"),
+                      Expanded(
+                        child: Text(data["keluar"] == null
+                            ? "-"
+                            : data["keluar"]["address"] == null
+                                ? "-"
+                                : data["keluar"]["address"]),
+                      ),
                     ],
                   ),
-                  const Row(
+                  Row(
                     children: [
-                      Text("Status"),
-                      Text(":"),
-                      Text("Dalam Area"),
+                      Text("Status :"),
+                      Text(data["keluar"] == null
+                          ? "-"
+                          : data["keluar"]["status"] == null
+                              ? "-"
+                              : data["keluar"]["status"]),
                     ],
                   ),
+                  Row(
+                    children: [
+                      Text("Radius :"),
+                      Text(data["keluar"]?["distance"] == null
+                          ? "-"
+                          : "${data["keluar"]!["distance"].toString().split(".").first} meter")
+                    ],
+                  )
                 ],
               ),
             )

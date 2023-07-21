@@ -115,28 +115,46 @@ class HomeView extends GetView<HomeController> {
                         color: Colors.grey[200],
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          const Column(
-                            children: [
-                              Text("Masuk"),
-                              Text("-"),
-                            ],
-                          ),
-                          Container(
-                            height: 30,
-                            width: 3,
-                            color: Colors.white,
-                          ),
-                          const Column(
-                            children: [
-                              Text("Keluar"),
-                              Text("-"),
-                            ],
-                          ),
-                        ],
-                      ),
+                      child:
+                          StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+                              stream: controller.streamTodayPresence(),
+                              builder: (context, snapsTodayPres) {
+                                if (snapsTodayPres.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
+                                Map<String, dynamic>? dataToday =
+                                    snapsTodayPres.data?.data();
+                                return Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Text("Masuk"),
+                                        Text(dataToday?["masuk"] == null
+                                            ? "-"
+                                            : "${DateFormat.jms().format(DateTime.parse(dataToday?["masuk"]["date"]))}"),
+                                      ],
+                                    ),
+                                    Container(
+                                      height: 30,
+                                      width: 3,
+                                      color: Colors.white,
+                                    ),
+                                    Column(
+                                      children: [
+                                        Text("Keluar"),
+                                        Text(dataToday?["keluar"] == null
+                                            ? "-"
+                                            : "${DateFormat.jms().format(DateTime.parse(dataToday?["keluar"]["date"]))}"),
+                                      ],
+                                    ),
+                                  ],
+                                );
+                              }),
                     ),
                     const SizedBox(
                       height: 16,
@@ -177,6 +195,8 @@ class HomeView extends GetView<HomeController> {
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: snapPresence.data!.docs.length,
                             itemBuilder: (context, index) {
+                              Map<String, dynamic> data =
+                                  snapPresence.data!.docs[index].data();
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 16),
                                 child: Material(
@@ -184,8 +204,9 @@ class HomeView extends GetView<HomeController> {
                                   borderRadius: BorderRadius.circular(20),
                                   child: InkWell(
                                     borderRadius: BorderRadius.circular(20),
-                                    onTap: () =>
-                                        Get.toNamed(Routes.DETAIL_PRESENSI),
+                                    onTap: () => Get.toNamed(
+                                        Routes.DETAIL_PRESENSI,
+                                        arguments: data),
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 10, horizontal: 20),
@@ -207,16 +228,23 @@ class HomeView extends GetView<HomeController> {
                                                         FontWeight.w500),
                                               ),
                                               Text(
-                                                DateFormat.yMMMEd()
-                                                    .format(DateTime.now()),
+                                                DateFormat.yMMMEd().format(
+                                                    DateTime.parse(
+                                                        data["date"])),
                                                 style: const TextStyle(
                                                     fontWeight:
                                                         FontWeight.w500),
                                               ),
                                             ],
                                           ),
-                                          Text(DateFormat.jms()
-                                              .format(DateTime.now())),
+                                          Text(data["masuk"] == null
+                                              ? "-"
+                                              : data["masuk"]["date"] == null
+                                                  ? "-"
+                                                  : DateFormat.jms().format(
+                                                      DateTime.parse(
+                                                          data["masuk"]
+                                                              ["date"]))),
                                           const SizedBox(
                                             height: 5,
                                           ),
@@ -225,8 +253,14 @@ class HomeView extends GetView<HomeController> {
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w500),
                                           ),
-                                          Text(DateFormat.jms()
-                                              .format(DateTime.now())),
+                                          Text(data["keluar"] == null
+                                              ? "-"
+                                              : data["keluar"]["date"] == null
+                                                  ? "-"
+                                                  : DateFormat.jms().format(
+                                                      DateTime.parse(
+                                                          data["keluar"]
+                                                              ["date"]))),
                                         ],
                                       ),
                                     ),
